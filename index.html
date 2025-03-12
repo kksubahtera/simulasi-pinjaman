@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Pinjaman</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Simulasi Pinjaman</h2>
+    <label>Jumlah Pinjaman (Rp):</label>
+    <input type='number' id='jumlahPinjaman'><br>
+    <label>Tenor (bulan):</label>
+    <input type='number' id='tenor'><br>
+    <label>Bunga (% per tahun):</label>
+    <input type='number' id='bunga'><br>
+    <label>Metode Bunga:</label>
+    <select id='metode'>
+        <option value='flat'>Flat</option>
+        <option value='menurun'>Menurun</option>
+    </select><br>
+    <button onclick='hitungSimulasi()'>Hitung</button>
+    <p id='hasil'></p>
+
+    <script src="script.js"></script>
+</body>
+</html>

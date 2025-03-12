@@ -10,7 +10,7 @@ body {
     margin: 0;
 }
 
-/* Overlay untuk efek lebih gelap dan elegan */
+/* Overlay gelap untuk meningkatkan kontras */
 body::before {
     content: "";
     position: absolute;
@@ -26,18 +26,18 @@ body::before {
 .container {
     position: relative;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.15); /* Warna transparan */
+    background: rgba(255, 255, 255, 0.2);
     padding: 25px;
     border-radius: 15px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Efek bayangan */
-    backdrop-filter: blur(15px); /* Blur di belakang elemen */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     width: 350px;
     text-align: center;
     animation: fadeIn 0.8s ease-in-out;
 }
 
-/* Efek animasi fade-in saat halaman dimuat */
+/* Efek fade-in */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -55,7 +55,7 @@ h2 {
     font-weight: bold;
 }
 
-/* Styling untuk label */
+/* Styling label */
 label {
     color: white;
     font-size: 14px;
@@ -64,7 +64,7 @@ label {
     margin: 10px 0 5px;
 }
 
-/* Input dan Select */
+/* Input dan select */
 input, select {
     width: 100%;
     padding: 12px;
@@ -72,23 +72,23 @@ input, select {
     border: none;
     border-radius: 8px;
     font-size: 16px;
-    background: rgba(255, 255, 255, 0.2); /* Semi-transparan */
+    background: rgba(255, 255, 255, 0.3);
     color: white;
     outline: none;
     transition: 0.3s;
 }
 
-/* Placeholder warna lebih terang */
+/* Placeholder lebih terang */
 input::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
 
-/* Hover & Focus untuk input dan select */
+/* Hover & Focus */
 input:focus, select:focus {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.5);
 }
 
-/* Tombol dengan efek hover */
+/* Tombol */
 button {
     width: 100%;
     padding: 12px;
@@ -103,12 +103,11 @@ button {
     transition: 0.3s;
 }
 
-/* Hover tombol */
 button:hover {
     background: linear-gradient(135deg, #45a049, #388e3c);
 }
 
-/* Efek hasil simulasi */
+/* Hasil simulasi */
 p {
     color: white;
     font-size: 14px;

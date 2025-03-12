@@ -1,19 +1,57 @@
+/* Styling untuk latar belakang */
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
+    background: url('https://source.unsplash.com/1600x900/?finance') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Kotak utama dengan efek translucent */
+.container {
+    background: rgba(255, 255, 255, 0.2);
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    width: 350px;
+    text-align: center;
 }
+
+/* Form input styling */
 input, select, button {
-    margin: 10px;
-    padding: 8px;
-}
-button {
-    background: blue;
-    color: white;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
     border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
 }
+
+/* Tombol dengan efek hover */
+button {
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
 button:hover {
-    background: darkblue;
+    background: #45a049;
+}
+
+/* Label dan teks */
+label {
+    color: white;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+p {
+    color: white;
+    font-size: 14px;
 }

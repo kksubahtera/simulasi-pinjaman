@@ -1,6 +1,6 @@
 /* Styling untuk latar belakang */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: url('https://source.unsplash.com/1600x900/?finance') no-repeat center center fixed;
     background-size: cover;
     display: flex;
@@ -10,48 +10,109 @@ body {
     margin: 0;
 }
 
-/* Kotak utama dengan efek translucent */
-.container {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    width: 350px;
-    text-align: center;
+/* Overlay untuk efek lebih gelap dan elegan */
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 0;
 }
 
-/* Form input styling */
-input, select, button {
+/* Kotak utama dengan efek translucent */
+.container {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.15); /* Warna transparan */
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Efek bayangan */
+    backdrop-filter: blur(15px); /* Blur di belakang elemen */
+    -webkit-backdrop-filter: blur(15px);
+    width: 350px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Efek animasi fade-in saat halaman dimuat */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Judul */
+h2 {
+    color: white;
+    font-weight: bold;
+}
+
+/* Styling untuk label */
+label {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 5px;
+}
+
+/* Input dan Select */
+input, select {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 12px;
+    margin: 8px 0;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 16px;
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparan */
+    color: white;
+    outline: none;
+    transition: 0.3s;
+}
+
+/* Placeholder warna lebih terang */
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Hover & Focus untuk input dan select */
+input:focus, select:focus {
+    background: rgba(255, 255, 255, 0.4);
 }
 
 /* Tombol dengan efek hover */
 button {
-    background: #4CAF50;
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
     color: white;
     cursor: pointer;
     transition: 0.3s;
 }
 
+/* Hover tombol */
 button:hover {
-    background: #45a049;
+    background: linear-gradient(135deg, #45a049, #388e3c);
 }
 
-/* Label dan teks */
-label {
-    color: white;
-    font-weight: bold;
-    display: block;
-    margin-top: 10px;
-}
-
+/* Efek hasil simulasi */
 p {
     color: white;
     font-size: 14px;
+    margin-top: 15px;
+    font-weight: bold;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }

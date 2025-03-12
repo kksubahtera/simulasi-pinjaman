@@ -1,25 +1,33 @@
-function hitungSimulasi() {
-    var jumlahPinjaman = parseFloat(document.getElementById('jumlahPinjaman').value);
-    var tenor = parseInt(document.getElementById('tenor').value);
-    var bunga = parseFloat(document.getElementById('bunga').value) / 100;
-    var metode = document.getElementById('metode').value;
+document.getElementById("hitungBtn").addEventListener("click", function() {
+    let jumlahPinjaman = parseFloat(document.getElementById("jumlahPinjaman").value);
+    let tenor = parseInt(document.getElementById("tenor").value);
+    let bunga = parseFloat(document.getElementById("bunga").value) / 100;
+    let metode = document.getElementById("metode").value;
 
-    var hasil = '';
+    let hasil = document.getElementById("hasil");
+    
+    if (isNaN(jumlahPinjaman) || isNaN(tenor) || isNaN(bunga)) {
+        hasil.innerHTML = "<span style='color: red;'>Harap masukkan angka yang valid!</span>";
+        return;
+    }
 
-    if (metode === 'flat') {
-        var angsuranPokok = jumlahPinjaman / tenor;
-        var angsuranBunga = jumlahPinjaman * bunga / 12;
-        var totalAngsuran = angsuranPokok + angsuranBunga;
-        hasil = `Cicilan per bulan: <b>Rp ${totalAngsuran.toFixed(2)}</b>`;
-    } else if (metode === 'menurun') {
-        var angsuranPokok = jumlahPinjaman / tenor;
-        hasil = '<b>Detail Cicilan:</b><br>';
-        for (var i = 1; i <= tenor; i++) {
-            var bungaBulanIni = (jumlahPinjaman - (angsuranPokok * (i - 1))) * bunga / 12;
-            var cicilanBulanIni = angsuranPokok + bungaBulanIni;
-            hasil += `Bulan ${i}: Rp ${cicilanBulanIni.toFixed(2)}<br>`;
+    let angsuran = "";
+    
+    if (metode === "Menurun") {
+        let pokok = jumlahPinjaman / tenor;
+        for (let i = 1; i <= tenor; i++) {
+            let sisaPinjaman = jumlahPinjaman - (pokok * (i - 1));
+            let bungaBulanIni = sisaPinjaman * bunga / 12;
+            let totalBayar = pokok + bungaBulanIni;
+            angsuran += `Bulan ${i}: Rp ${totalBayar.toFixed(2)}<br>`;
+        }
+    } else {
+        let bungaPerBulan = (jumlahPinjaman * bunga) / 12;
+        let angsuranTetap = (jumlahPinjaman / tenor) + bungaPerBulan;
+        for (let i = 1; i <= tenor; i++) {
+            angsuran += `Bulan ${i}: Rp ${angsuranTetap.toFixed(2)}<br>`;
         }
     }
 
-    document.getElementById('hasil').innerHTML = hasil;
-}
+    hasil.innerHTML = angsuran;
+});

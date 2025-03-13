@@ -4,29 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulasi Pinjaman</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: url('background.png') no-repeat center center/cover;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+        }
+        .form-container {
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            background: rgba(41, 45, 83, 0.9);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow-x: auto;
+            display: block;
+        }
+        th, td {
+            border: 1px solid white;
+            padding: 12px;
+            text-align: center;
+            color: white;
+        }
+        @media (max-width: 768px) {
+            .form-container {
+                width: 90%;
+                padding: 20px;
+            }
+            table {
+                font-size: 14px;
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h2>Simulasi Pinjaman Koperasi KSU BAHTERA</h2>
-        <label>Jumlah Pinjaman (Rp):</label>
-        <input type='number' id='jumlahPinjaman' placeholder='Masukkan Jumlah Pinjaman (Rp)'>
-
-        <label>Tenor (bulan):</label>
-        <input type='number' id='tenor' placeholder='Masukkan Tenor (bulan)'>
-
-        <label>Bunga (% per tahun):</label>
-        <input type='number' id='bunga' placeholder='Masukkan bunga (%)'>
-
-        <label>Metode Bunga:</label>
-        <select id='metode'>
-            <option value='flat'>Flat</option>
-            <option value='menurun'>Menurun</option>
-        </select>
-
-        <button onclick='hitungSimulasi()'>Hitung</button>
-        <p id='hasil'></p>
+        <div class="form-container">
+            <img src="logo.png" alt="Logo Perusahaan" class="logo" style="width: 100px; display: block; margin: 0 auto;">
+            <h2 style="text-align: center; color: white;">Simulasi Pinjaman</h2>
+            <label style="color: white;">Nominal Pinjaman:</label>
+            <input type="text" id="jumlahPinjaman" placeholder="Masukkan jumlah" oninput="formatRupiah(this)">
+            <label style="color: white;">Tenor (bulan, max 12):</label>
+            <input type="range" id="tenor" min="1" max="12" value="12" oninput="updateTenorValue()">
+            <span id="tenorValue" style="color: white;">12 bulan</span>
+            <button onclick="hitungAngsuran()">Hitung</button>
+            <div id="hasil"></div>
+        </div>
     </div>
-    <script src="script.js"></script>
+    
+    <script>
+        function updateTenorValue() {
+            document.getElementById('tenorValue').innerText = document.getElementById('tenor').value + ' bulan';
+        }
+        
+        function formatRupiah(input) {
+            let angka = input.value.replace(/\D/g, "");
+            input.value = new Intl.NumberFormat("id-ID").format(angka);
+        }
+        
+        function hitungAngsuran() {
+            let jumlahPinjaman = document.getElementById("jumlahPinjaman").value.replace(/\D/g, "");
+            let tenor = document.getElementById("tenor").value;
+            
+            if (jumlahPinjaman === "" || jumlahPinjaman <= 0) {
+                document.getElementById("hasil").innerHTML = "Masukkan jumlah pinjaman yang valid.";
+                return;
+            }
+            
+            jumlahPinjaman = parseFloat(jumlahPinjaman);
+            let sisaPinjaman = jumlahPinjaman;
+            let hasilHTML = "<h3 style='color: white; text-align: center;'>Detail Angsuran</h3><table><tr><th>Bulan</th><th>Angsuran Pokok</th><th>Bunga</th><th>Total Angsuran</th><th>Sisa Pinjaman</th></tr>";
+            
+            for (let i = 1; i <= tenor; i++) {
+                let bunga = sisaPinjaman * 0.02;
+                let angsuranPokok = jumlahPinjaman / tenor;
+                let totalAngsuran = angsuranPokok + bunga;
+                sisaPinjaman -= angsuranPokok;
+                
+                hasilHTML += `<tr>
+                                <td>${i}</td>
+                                <td>${formatCurrency(angsuranPokok)}</td>
+                                <td>${formatCurrency(bunga)}</td>
+                                <td>${formatCurrency(totalAngsuran)}</td>
+                                <td>${formatCurrency(sisaPinjaman)}</td>
+                              </tr>`;
+            }
+            
+            hasilHTML += "</table>";
+            document.getElementById("hasil").innerHTML = hasilHTML;
+        }
+        
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(amount);
+        }
+    </script>
 </body>
 </html>

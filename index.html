@@ -10,7 +10,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             background: url('background.png') no-repeat center center/cover;
         }
@@ -30,28 +30,32 @@
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            overflow-x: auto;
-            display: block;
+            background: rgba(255, 255, 255, 0.1);
         }
         th, td {
             border: 1px solid white;
-            padding: 12px;
+            padding: 10px;
             text-align: center;
             color: white;
         }
         @media (max-width: 768px) {
             .form-container {
-                width: 90%;
+                width: 95%;
                 padding: 20px;
+            }
+            .table-container {
+                overflow-x: auto;
             }
             table {
                 font-size: 14px;
-                display: block;
-                overflow-x: auto;
             }
         }
     </style>
@@ -67,7 +71,7 @@
             <input type="range" id="tenor" min="1" max="12" value="12" oninput="updateTenorValue()">
             <span id="tenorValue" style="color: white;">12 bulan</span>
             <button onclick="hitungAngsuran()">Hitung</button>
-            <div id="hasil"></div>
+            <div id="hasil" class="table-container"></div>
         </div>
     </div>
     
@@ -92,7 +96,7 @@
             
             jumlahPinjaman = parseFloat(jumlahPinjaman);
             let sisaPinjaman = jumlahPinjaman;
-            let hasilHTML = "<h3 style='color: white; text-align: center;'>Detail Angsuran</h3><table><tr><th>Bulan</th><th>Angsuran Pokok</th><th>Bunga</th><th>Total Angsuran</th><th>Sisa Pinjaman</th></tr>";
+            let hasilHTML = "<h3 style='color: white; text-align: center;'>Detail Angsuran</h3><div class='table-container'><table><tr><th>Bulan</th><th>Angsuran Pokok</th><th>Bunga</th><th>Total Angsuran</th><th>Sisa Pinjaman</th></tr>";
             
             for (let i = 1; i <= tenor; i++) {
                 let bunga = sisaPinjaman * 0.02;
@@ -109,7 +113,7 @@
                               </tr>`;
             }
             
-            hasilHTML += "</table>";
+            hasilHTML += "</table></div>";
             document.getElementById("hasil").innerHTML = hasilHTML;
         }
         

@@ -65,9 +65,9 @@
         <div class="form-container">
             <img src="logo.png" alt="Logo Perusahaan" class="logo" style="width: 100px; display: block; margin: 0 auto;">
             <h2 style="text-align: center; color: white;">Simulasi Pinjaman</h2>
-            <label style="color: white;">Nominal Pinjaman:</label>
+            <label style="color: white;">Nominal Pinjaman :</label>
             <input type="text" id="jumlahPinjaman" placeholder="Masukkan jumlah (Rp)" oninput="formatRupiah(this)">
-            <label style="color: white;">Tenor Pinjaman:</label>
+            <label style="color: white;">Tenor :</label>
             <input type="range" id="tenor" min="1" max="12" value="12" oninput="updateTenorValue()">
             <span id="tenorValue" style="color: white;">12 bulan</span>
             <button onclick="hitungAngsuran()">Hitung</button>

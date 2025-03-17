@@ -119,7 +119,7 @@
             
             jumlahPinjaman = parseFloat(jumlahPinjaman);
             let sisaPinjaman = jumlahPinjaman;
-            let hasilHTML = "<h3 style='color: white; text-align: center;'>Detail Angsuran</h3><div class='table-container'><table><tr><th>Bulan</th><th>Angsuran Pokok</th><th>Bunga</th><th>Total Angsuran</th><th>Sisa Pinjaman</th></tr>";
+            let hasilHTML = "<h3 style='color: white; text-align: center;'>Detail Angsuran</h3><div class='table-container'><table><tr><th>Bulan ke-</th><th>Angsuran Pokok</th><th>Bunga Pinjaman</th><th>Total Angsuran</th><th>Sisa Pinjaman</th></tr>";
             
             for (let i = 1; i <= tenor; i++) {
                 let bunga = jenisPinjaman === "efektifMenurun" ? sisaPinjaman * 0.02 : jumlahPinjaman * 0.02;

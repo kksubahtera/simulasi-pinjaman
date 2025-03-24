@@ -40,7 +40,7 @@ input::placeholder {
     color: #ADC5CE;
 }
 button {
-    background: linear-gradient(45deg, #007BFF,#20C997,#A890FE); /* Gradasi biru, teal, ungu muda */
+    background: linear-gradient(45deg, #007BFF,#A890FE); /* Gradasi biru, teal, ungu muda */
     border: none;
     padding: 12px 20px;
     font-size: 16px;

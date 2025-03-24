@@ -81,9 +81,9 @@
             <input type="text" id="jumlahPinjaman" placeholder="Masukkan jumlah (Rp)" oninput="formatRupiah(this)">
             
             <label style="color: white;">Tenor (bulan, max 12):</label>
+            <span id="tenorValue">12 bulan</span>
             <input type="range" id="tenor" min="1" max="15" value="12" oninput="updateTenorValue()">
-            <span id="tenorValue" style="color: white;">12 bulan</span>
-            
+                        
             <div style="margin-top: 10px;"></div>
             
             <label style="color: white;">Jenis Pinjaman:</label>
@@ -108,37 +108,37 @@
         }
         
         function hitungAngsuran() {
-            let jumlahPinjaman = document.getElementById("jumlahPinjaman").value.replace(/\D/g, "");
-            let tenor = document.getElementById("tenor").value;
-            let jenisPinjaman = document.getElementById("jenisPinjaman").value;
-            
-            if (jumlahPinjaman === "" || jumlahPinjaman <= 0) {
-                document.getElementById("hasil").innerHTML = "Masukkan jumlah pinjaman yang valid.";
-                return;
-            }
-            
-            jumlahPinjaman = parseFloat(jumlahPinjaman);
-            let sisaPinjaman = jumlahPinjaman;
-            let hasilHTML = "<h3 style='color: white; text-align: center;'>Detail Angsuran</h3><div class='table-container'><table><tr><th>Bulan ke-</th><th>Angsuran Pokok</th><th>Bunga Pinjaman</th><th>Total Angsuran</th><th>Sisa Pinjaman</th></tr>";
-            
-            for (let i = 1; i <= tenor; i++) {
-                let bunga = jenisPinjaman === "efektifMenurun" ? sisaPinjaman * 0.02 : jumlahPinjaman * 0.02;
-                let angsuranPokok = jumlahPinjaman / tenor;
-                let totalAngsuran = angsuranPokok + bunga;
-                sisaPinjaman -= angsuranPokok;
-                
-                hasilHTML += `<tr>
-                                <td>${i}</td>
-                                <td>${formatCurrency(angsuranPokok)}</td>
-                                <td>${formatCurrency(bunga)}</td>
-                                <td>${formatCurrency(totalAngsuran)}</td>
-                                <td>${formatCurrency(sisaPinjaman)}</td>
-                              </tr>`;
-            }
-            
-            hasilHTML += "</table></div>";
-            document.getElementById("hasil").innerHTML = hasilHTML;
-        }
+    let jumlahPinjaman = document.getElementById("jumlahPinjaman").value.replace(/\D/g, "");
+    let tenor = document.getElementById("tenor").value;
+    let jenisPinjaman = document.getElementById("jenisPinjaman").value;
+
+    if (jumlahPinjaman === "" || jumlahPinjaman <= 0) {
+        alert("⚠️ Masukkan jumlah nominal pinjaman yang valid!"); // Notifikasi
+        return;
+    }
+
+    jumlahPinjaman = parseFloat(jumlahPinjaman);
+    let sisaPinjaman = jumlahPinjaman;
+    let hasilHTML = "<h3 style='color: white; text-align: center;'>Detail Angsuran</h3><div class='table-container'><table><tr><th>Bulan ke-</th><th>Angsuran Pokok</th><th>Bunga Pinjaman</th><th>Total Angsuran</th><th>Sisa Angsuran</th></tr>";
+
+    for (let i = 1; i <= tenor; i++) {
+        let bunga = jenisPinjaman === "efektifMenurun" ? sisaPinjaman * 0.02 : jumlahPinjaman * 0.02;
+        let angsuranPokok = jumlahPinjaman / tenor;
+        let totalAngsuran = angsuranPokok + bunga;
+        sisaPinjaman -= angsuranPokok;
+
+        hasilHTML += `<tr>
+                        <td>${i}</td>
+                        <td>${formatCurrency(angsuranPokok)}</td>
+                        <td>${formatCurrency(bunga)}</td>
+                        <td>${formatCurrency(totalAngsuran)}</td>
+                        <td>${formatCurrency(sisaPinjaman)}</td>
+                      </tr>`;
+    }
+
+    hasilHTML += "</table></div>";
+    document.getElementById("hasil").innerHTML = hasilHTML;
+}
         
         function formatCurrency(amount) {
             return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(amount);

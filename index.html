@@ -112,7 +112,7 @@
     let tenor = document.getElementById("tenor").value;
     let jenisPinjaman = document.getElementById("jenisPinjaman").value;
 
-    if (jumlahPinjaman === "" || jumlahPinjaman <= 0) {
+    if (jumlahPinjaman === "" || jumlahPinjaman <= 500000) {
         alert("⚠️ Masukkan jumlah nominal pinjaman yang valid!"); // Notifikasi
         return;
     }

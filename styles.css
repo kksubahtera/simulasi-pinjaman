@@ -40,14 +40,25 @@ input::placeholder {
     color: #ADC5CE;
 }
 button {
-    background: #3B919B;
+    background: linear-gradient(45deg, #007BFF,#20C997,#A890FE); /* Gradasi biru, teal, ungu muda */
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
     color: white;
+    border-radius: 8px;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    display: block;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
 button:hover {
-    background: #68AEB8;
+    background: linear-gradient(45deg,#d6385e, #8a6ff5, #0056b3); /* Warna lebih gelap saat hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
+
 #tenorValue {
     display: block;
     margin-top: 5px;
@@ -100,3 +111,16 @@ table {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.7);
 }
+
+#tenorValue {
+    display: inline-block;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Warna gradien */
+    color: white;
+    padding: 8px 14px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Efek bayangan */
+    text-align: center;
+}
+

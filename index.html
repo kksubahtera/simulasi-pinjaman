@@ -159,6 +159,11 @@
         showPopup("⚠️ Masukkan jumlah pinjaman yang valid! (≥Rp500.000)");
         return;
     }
+    if (jumlahPinjaman % 100000 !== 0) {
+    showPopup("Ups! Jumlah pinjaman sebaiknya dalam kelipatan Rp100.000. Yuk, koreksi sedikit 😄");
+    return;
+    }
+        
     if (!periodePinjaman) {
         showPopup("⚠️ Pilih periode mulai pinjaman!");
         return;

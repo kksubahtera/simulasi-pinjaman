@@ -156,7 +156,7 @@
     let periodePinjaman = document.getElementById("periodePinjaman").value;
     
     if (jumlahPinjaman === "" || jumlahPinjaman <= 499999) {
-        showPopup("⚠️ Masukkan jumlah pinjaman yang valid! (≥Rp500.000)");
+        showPopup("⚠️ Nominal pinjaman terlalu kecil. Minimal Rp500.000 untuk melanjutkan.");
         return;
     }
     if (jumlahPinjaman % 100000 !== 0) {
@@ -165,7 +165,7 @@
     }
         
     if (!periodePinjaman) {
-        showPopup("⚠️ Pilih periode mulai pinjaman!");
+        showPopup("⚠️ Periode mulai pinjaman belum dipilih. Mohon lengkapi dulu 😊");
         return;
     }
     

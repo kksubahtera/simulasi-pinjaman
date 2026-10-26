@@ -30,6 +30,7 @@
             </div>
             <input type="range" id="tenor" min="1" max="15" value="12" oninput="updateTenorValue()">
             <div class="range-scale"><span>1</span><span>15 bulan</span></div>
+            <div class="warn" id="tenorWarn">⚠️ Tenor maksimal yang berlaku adalah 12 bulan. Hasil di atas 12 bulan hanya sebagai simulasi.</div>
         </div>
 
         <div class="field">
@@ -68,7 +69,9 @@
     })();
 
     function updateTenorValue() {
-        document.getElementById("tenorValue").innerText = document.getElementById("tenor").value + " bulan";
+        const t = parseInt(document.getElementById("tenor").value, 10);
+        document.getElementById("tenorValue").innerText = t + " bulan";
+        document.getElementById("tenorWarn").classList.toggle("show", t > 12);
     }
 
     function formatRupiah(input) {
@@ -95,10 +98,6 @@
         const jumlahPinjaman = parseInt(raw, 10);
         if (jumlahPinjaman % 100000 !== 0) {
             showPopup("Ups! Jumlah pinjaman sebaiknya dalam kelipatan Rp100.000. Yuk, koreksi sedikit 😄");
-            return;
-        }
-        if (tenor > 12) {
-            showPopup("⚠️ Tenor maksimal 12 bulan. Mohon kurangi tenor terlebih dahulu.");
             return;
         }
         if (!periodePinjaman) {
@@ -153,6 +152,7 @@
         const hasil = document.getElementById("hasil");
         hasil.innerHTML = `
             <h2>Detail Angsuran Pinjaman</h2>
+            ${tenor > 12 ? '<div class="warn show">⚠️ Tenor maksimal yang berlaku adalah 12 bulan. Hasil ini hanya simulasi.</div>' : ''}
             <div class="summary">
                 <div class="stat"><span>Angsuran Pertama</span><strong>${formatCurrency(angsuranPertama)}</strong></div>
                 <div class="stat"><span>Total Bunga</span><strong>${formatCurrency(totalBunga)}</strong></div>

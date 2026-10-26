@@ -1,126 +1,192 @@
+:root {
+    --bg1: #0f172a;
+    --bg2: #1e1b4b;
+    --bg3: #0e7490;
+    --card: rgba(255, 255, 255, 0.08);
+    --border: rgba(255, 255, 255, 0.16);
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+    --accent: #6366f1;
+    --accent2: #22d3ee;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
 body {
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.35), transparent 45%),
+        radial-gradient(circle at 85% 90%, rgba(34, 211, 238, 0.28), transparent 45%),
+        linear-gradient(135deg, var(--bg1), var(--bg2) 55%, var(--bg3));
+    background-attachment: fixed;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: url('background.png') no-repeat center center/cover;
-    font-family: Arial, sans-serif;
-    margin: 0;
+    padding: 32px 16px;
 }
-.form-container {
-    background: rgba(58, 98, 137, 0.9);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    text-align: center;
-    color: #ADC5CE;
+.container { width: 100%; max-width: 760px; }
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+header { text-align: center; margin-bottom: 28px; }
+.logo { width: 72px; height: auto; display: block; margin: 0 auto 12px; }
+h1 { font-size: 22px; font-weight: 650; margin: 0; letter-spacing: 0.2px; }
+.subtitle { color: var(--muted); font-size: 14px; margin-top: 4px; }
+
+.field { margin-bottom: 20px; }
+label, .label {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+.input-wrap { position: relative; }
+.prefix {
+    position: absolute; left: 14px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted); font-size: 15px; pointer-events: none;
+}
+input[type="text"], input[type="month"] {
     width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.logo {
-    width: 100px;
-    margin-bottom: 15px;
-}
-input, button {
-    width: 90%;
-    padding: 12px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-}
-input {
-    background: rgba(173, 197, 206, 0.3);
-    color: white;
-}
-input::placeholder {
-    color: #ADC5CE;
-}
-button {
-    background: linear-gradient(45deg, #007BFF,#A890FE); /* Gradasi biru, teal, ungu muda */
-    border: none;
-    padding: 12px 20px;
+    padding: 13px 14px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
     font-size: 16px;
-    font-weight: bold;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-    display: block;
-    margin: 20px auto;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-family: inherit;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+    color-scheme: dark;
+}
+#jumlahPinjaman { padding-left: 44px; font-weight: 600; }
+input::placeholder { color: #64748b; }
+input:focus {
+    border-color: var(--accent2);
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.18);
 }
 
-button:hover {
-    background: linear-gradient(45deg,#d6385e, #8a6ff5, #0056b3); /* Warna lebih gelap saat hover */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-}
-
+.tenor-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.tenor-head label { margin: 0; }
 #tenorValue {
-    display: block;
-    margin-top: 5px;
+    font-size: 13px; font-weight: 600;
+    padding: 4px 12px; border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
 }
+input[type="range"] {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 6px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18); outline: none; margin: 10px 0 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%;
+    background: #fff; border: 4px solid var(--accent); cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,.4);
+}
+input[type="range"]::-moz-range-thumb {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: #fff; border: 4px solid var(--accent); cursor: pointer;
+}
+.range-scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+.segmented {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 4px;
+}
+.segmented input { display: none; }
+.segmented label {
+    margin: 0; padding: 10px; text-align: center; cursor: pointer;
+    border-radius: 9px; font-size: 14px; color: var(--muted);
+    transition: all .2s;
+}
+.segmented input:checked + label {
+    background: linear-gradient(135deg, var(--accent), #8b5cf6);
+    color: #fff; font-weight: 600;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.btn {
+    width: 100%; padding: 14px; margin-top: 8px;
+    border: none; border-radius: 12px; cursor: pointer;
+    font-size: 16px; font-weight: 600; font-family: inherit; color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    box-shadow: 0 8px 20px rgba(34, 211, 238, 0.25);
+    transition: transform .15s, box-shadow .2s, filter .2s;
+}
+.btn:hover { transform: translateY(-1px); filter: brightness(1.08); box-shadow: 0 12px 26px rgba(34, 211, 238, 0.32); }
+.btn:active { transform: translateY(0); }
+
+/* Hasil */
+#hasil { margin-top: 28px; }
+#hasil h2 { font-size: 16px; font-weight: 600; text-align: center; margin: 0 0 16px; }
+.summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.stat {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 14px 10px; text-align: center;
+}
+.stat span { display: block; font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.stat strong { font-size: 14px; font-weight: 650; }
 .table-container {
-    width: 100%;
     overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 14px;
 }
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+table { width: 100%; border-collapse: collapse; white-space: nowrap; font-size: 13px; }
+th, td { padding: 12px 14px; text-align: right; }
+th:first-child, td:first-child { text-align: center; }
+th:nth-child(2), td:nth-child(2) { text-align: left; }
+th {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--muted); font-weight: 600; font-size: 12px;
+    text-transform: uppercase; letter-spacing: .4px;
 }
-th, td {
-    border: 1px solid white;
-    padding: 10px;
-    text-align: center;
-    color: white;
+tbody tr { border-top: 1px solid rgba(255, 255, 255, 0.08); }
+tbody tr:hover { background: rgba(255, 255, 255, 0.05); }
+td.total { font-weight: 650; color: var(--accent2); }
+
+::-webkit-scrollbar { height: 8px; width: 8px; }
+::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.06); border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.5); }
+
+/* Pop-up */
+.popup {
+    display: none; position: fixed; inset: 0;
+    background: rgba(2, 6, 23, 0.6);
+    backdrop-filter: blur(4px);
+    justify-content: center; align-items: center;
+    z-index: 1000; padding: 16px;
 }
-/* Scrollbar yang lebih minimalis */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    overflow-x: auto;
-    display: block;
-    max-width: 100%;
-    white-space: nowrap; /* Mencegah pemotongan teks */
+.popup-content {
+    background: #fff; color: #0f172a;
+    padding: 28px 24px 22px; border-radius: 18px; text-align: center;
+    max-width: 380px; width: 100%;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    animation: pop .2s ease;
+}
+.popup-content p { margin: 0 0 18px; line-height: 1.5; font-size: 15px; }
+.close-button {
+    padding: 10px 28px; border: none; border-radius: 10px; cursor: pointer;
+    background: #0f172a; color: #fff; font-size: 14px; font-weight: 600; font-family: inherit;
+}
+.close-button:hover { background: #1e293b; }
+@keyframes pop { from { transform: scale(.94); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+@media (max-width: 600px) {
+    .card { padding: 22px 18px; border-radius: 16px; }
+    .summary { grid-template-columns: 1fr; }
+    th, td { padding: 10px; }
 }
 
-/* Scrollbar khusus untuk WebKit browsers (Chrome, Safari, Edge) */
-::-webkit-scrollbar {
-    height: 8px; /* Tinggi scrollbar horizontal */
-    width: 8px;  /* Lebar scrollbar vertikal */
-}
-
-/* Track (jalur scrollbar) */
-::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1); /* Transparan elegan */
-    border-radius: 10px;
-}
-
-/* Handle (pegangan scrollbar) */
-::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
-}
-
-/* Hover effect pada scrollbar */
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.7);
-}
-
-#tenorValue {
-    display: inline-block;
-    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Warna gradien */
-    color: white;
-    padding: 8px 14px;
-    border-radius: 15px;
-    font-weight: bold;
-    font-size: 14px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Efek bayangan */
-    text-align: center;
-}
-
+.note { color: var(--muted); font-weight: 400; font-size: 12px; }

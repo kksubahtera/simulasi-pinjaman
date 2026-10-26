@@ -1,240 +1,182 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulasi Pinjaman</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: url('background.png') no-repeat center center/cover;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 800px;
-            padding: 20px;
-        }
-        .form-container {
-            width: 100%;
-            max-width: 600px;
-            padding: 30px;
-            background: rgba(41, 45, 83, 0.9);
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        th, td {
-            border: 1px solid white;
-            padding: 10px;
-            text-align: center;
-            color: white;
-        }
-        select, input[type="month"] {
-            width: 60%;
-            padding: 8px;
-            border-radius: 5px;
-            border: none;
-            background: white;
-            color: black;
-            font-size: 14px;
-            cursor: pointer;
-            display: block;
-            margin: 10px auto;
-            text-align: center;
-            text-align-last: center;
-        }
-        @media (max-width: 768px) {
-            .form-container {
-                width: 95%;
-                padding: 20px;
-            }
-            .table-container {
-                overflow-x: auto;
-            }
-            table {
-                font-size: 14px;
-            }
-        }
-        /* Style untuk pop-up */
-        .popup {
-            display: none; /* Tersembunyi secara default */
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .popup-content {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 400px; /* Mengatur lebar maksimum pop-up */
-            width: 90%; /* Lebar responsif */
-        }
-        .close-button {
-            margin-top: 15px;
-            padding: 8px 16px; /* Ukuran padding disesuaikan */
-            background-color: #dc3545; /* Warna merah */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px; /* Ukuran font */
-            white-space: nowrap; /* Mencegah tombol membungkus */
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulasi Pinjaman | Koperasi KSU BAHTERA</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="form-container">
-            <img src="logo.png" alt="Logo Perusahaan" class="logo" style="width: 100px; display: block; margin: 0 auto;">
-            <h2 style="text-align: center; color: white;">Simulasi Pinjaman</h2>
-            <label style="color: white;">Nominal Pinjaman:</label>
-            <input type="text" id="jumlahPinjaman" placeholder="Masukkan jumlah (Rp)" oninput="formatRupiah(this)">
-            
-            <label style="color: white;">Tenor (bulan, max 12):</label>
-            <span id="tenorValue">12 bulan</span>
+<div class="container">
+    <div class="card">
+        <header>
+            <img src="logo.png" alt="Logo Koperasi KSU BAHTERA" class="logo">
+            <h1>Koperasi KSU BAHTERA</h1>
+            <div class="subtitle">Simulasi Pinjaman &middot; Hitung estimasi angsuran bulanan Anda</div>
+        </header>
+
+        <div class="field">
+            <label for="jumlahPinjaman">Nominal Pinjaman</label>
+            <div class="input-wrap">
+                <span class="prefix">Rp</span>
+                <input type="text" id="jumlahPinjaman" inputmode="numeric" placeholder="0" oninput="formatRupiah(this)" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="tenor-head">
+                <label for="tenor">Tenor <span class="note">(maks 12 bulan)</span></label>
+                <span id="tenorValue">12 bulan</span>
+            </div>
             <input type="range" id="tenor" min="1" max="15" value="12" oninput="updateTenorValue()">
+            <div class="range-scale"><span>1</span><span>15 bulan</span></div>
+        </div>
 
-            <label style="color: white;">Periode Mulai Pinjaman:</label>
+        <div class="field">
+            <label for="periodePinjaman">Periode Mulai Pinjaman</label>
             <input type="month" id="periodePinjaman">
-                        
-            <label style="color: white;">Jenis Pinjaman:</label>
-            <select id="jenisPinjaman">
-                <option value="efektifMenurun" selected>Bunga Efektif 2%</option>
-                <option value="flat">Bunga Flat 2%</option>
-            </select>
-            
-            <button onclick="hitungAngsuran()">Hitung</button>
-            <div id="hasil" class="table-container"></div>
         </div>
-    </div>
 
-    <!-- Pop-up -->
-    <div class="popup" id="popup">
-        <div class="popup-content">
-            <p id="popupMessage"></p>
-            <button class="close-button" onclick="closePopup()">Tutup</button>
+        <div class="field">
+            <span class="label">Jenis Bunga</span>
+            <div class="segmented">
+                <input type="radio" name="jenis" id="jenisEfektif" value="efektifMenurun" checked>
+                <label for="jenisEfektif">Efektif 2%</label>
+                <input type="radio" name="jenis" id="jenisFlat" value="flat">
+                <label for="jenisFlat">Flat 2%</label>
+            </div>
         </div>
-    </div>
-    
-    <script>
-        function updateTenorValue() {
-            document.getElementById('tenorValue').innerText = document.getElementById('tenor').value + ' bulan';
-        }
-        
-        function formatRupiah(input) {
-            let angka = input.value.replace(/\D/g, "");
-            input.value = new Intl.NumberFormat("id-ID").format(angka);
-        }
-        
-        function hitungAngsuran() {
-    let jumlahPinjaman = document.getElementById("jumlahPinjaman").value.replace(/\D/g, "");
-    let tenor = document.getElementById("tenor").value;
-    let jenisPinjaman = document.getElementById("jenisPinjaman").value;
-    let periodePinjaman = document.getElementById("periodePinjaman").value;
-    
-    if (jumlahPinjaman === "" || jumlahPinjaman <= 499999) {
-        showPopup("⚠️ Nominal pinjaman terlalu kecil. Minimal Rp500.000 untuk melanjutkan.");
-        return;
-    }
-    if (jumlahPinjaman % 100000 !== 0) {
-    showPopup("Ups! Jumlah pinjaman sebaiknya dalam kelipatan Rp100.000. Yuk, koreksi sedikit 😄");
-    return;
-    }
-        
-    if (!periodePinjaman) {
-        showPopup("⚠️ Periode mulai pinjaman belum dipilih. Mohon lengkapi dulu 😊");
-        return;
-    }
-    
-    jumlahPinjaman = parseFloat(jumlahPinjaman);
-    let sisaPinjaman = jumlahPinjaman;
-    let hasilHTML = `<h3 style='color: white; text-align: center;'>Detail Angsuran Pinjaman</h3>
-                     <div class='table-container'><table>
-                     <tr><th>IL</th><th>Periode</th><th>Angsuran Pokok</th><th>Bunga Pinjaman</th><th>Total Angsuran</th><th>Sisa Angsuran</th></tr>`;
 
-    // Hitung angsuran pokok dengan pembulatan 50rb
-    const pokokDasar = Math.floor(jumlahPinjaman / tenor / 50000) * 50000;
-    const totalSisa = jumlahPinjaman - (pokokDasar * tenor);
-    const jumlahTambahan = Math.round(totalSisa / 50000);
-    
-    let currentDate = new Date(periodePinjaman + "-01");
-    currentDate.setMonth(currentDate.getMonth() + 1); // Tambahkan 1 bulan
-    
-    let totalPokokDibayar = 0;
-    
-    for (let i = 0; i < tenor; i++) {
-        let bunga = jenisPinjaman === "efektifMenurun" ? sisaPinjaman * 0.02 : jumlahPinjaman * 0.02;
-        
-        // Hitung angsuran pokok dengan pembulatan 50rb
-        let angsuranPokok;
-        if (i < jumlahTambahan) {
-            angsuranPokok = pokokDasar + 50000;
-        } else if (i === tenor - 1) {
-            angsuranPokok = jumlahPinjaman - totalPokokDibayar;
-        } else {
-            angsuranPokok = pokokDasar;
+        <button class="btn" onclick="hitungAngsuran()">Hitung Angsuran</button>
+        <div id="hasil"></div>
+    </div>
+</div>
+
+<div class="popup" id="popup" onclick="if (event.target === this) closePopup()">
+    <div class="popup-content">
+        <p id="popupMessage"></p>
+        <button class="close-button" onclick="closePopup()">Tutup</button>
+    </div>
+</div>
+
+<script>
+    // Default periode: bulan ini
+    (function () {
+        const now = new Date();
+        const m = String(now.getMonth() + 1).padStart(2, "0");
+        document.getElementById("periodePinjaman").value = `${now.getFullYear()}-${m}`;
+    })();
+
+    function updateTenorValue() {
+        document.getElementById("tenorValue").innerText = document.getElementById("tenor").value + " bulan";
+    }
+
+    function formatRupiah(input) {
+        const angka = input.value.replace(/\D/g, "");
+        input.value = angka ? new Intl.NumberFormat("id-ID").format(angka) : "";
+    }
+
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency", currency: "IDR", maximumFractionDigits: 0
+        }).format(amount);
+    }
+
+    function hitungAngsuran() {
+        const raw = document.getElementById("jumlahPinjaman").value.replace(/\D/g, "");
+        const tenor = parseInt(document.getElementById("tenor").value, 10);
+        const jenisPinjaman = document.querySelector('input[name="jenis"]:checked').value;
+        const periodePinjaman = document.getElementById("periodePinjaman").value;
+
+        if (raw === "" || parseInt(raw, 10) < 500000) {
+            showPopup("⚠️ Nominal pinjaman terlalu kecil. Minimal Rp500.000 untuk melanjutkan.");
+            return;
         }
-        totalPokokDibayar += angsuranPokok;
-        
-        let totalAngsuran = angsuranPokok + bunga;
-        sisaPinjaman -= angsuranPokok;
-        
-        let periode = currentDate.toLocaleString('id-ID', { month: 'long', year: 'numeric' });
-        hasilHTML += `<tr>
-                        <td>${i+1}</td>
-                        <td>${periode}</td>
-                        <td>${formatCurrency(angsuranPokok)}</td>
-                        <td>${formatCurrency(bunga)}</td>
-                        <td>${formatCurrency(totalAngsuran)}</td>
-                        <td>${formatCurrency(sisaPinjaman)}</td>
-                      </tr>`;
-        
+        const jumlahPinjaman = parseInt(raw, 10);
+        if (jumlahPinjaman % 100000 !== 0) {
+            showPopup("Ups! Jumlah pinjaman sebaiknya dalam kelipatan Rp100.000. Yuk, koreksi sedikit 😄");
+            return;
+        }
+        if (tenor > 12) {
+            showPopup("⚠️ Tenor maksimal 12 bulan. Mohon kurangi tenor terlebih dahulu.");
+            return;
+        }
+        if (!periodePinjaman) {
+            showPopup("⚠️ Periode mulai pinjaman belum dipilih. Mohon lengkapi dulu 😊");
+            return;
+        }
+
+        // Angsuran pokok dibulatkan kelipatan 50rb
+        const pokokDasar = Math.floor(jumlahPinjaman / tenor / 50000) * 50000;
+        const totalSisa = jumlahPinjaman - pokokDasar * tenor;
+        const jumlahTambahan = Math.round(totalSisa / 50000);
+
+        const currentDate = new Date(periodePinjaman + "-01");
         currentDate.setMonth(currentDate.getMonth() + 1);
+
+        let sisaPinjaman = jumlahPinjaman;
+        let totalPokokDibayar = 0;
+        let totalBunga = 0;
+        let angsuranPertama = 0;
+        let rows = "";
+
+        for (let i = 0; i < tenor; i++) {
+            const bunga = (jenisPinjaman === "efektifMenurun" ? sisaPinjaman : jumlahPinjaman) * 0.02;
+
+            let angsuranPokok;
+            if (i === tenor - 1) {
+                angsuranPokok = jumlahPinjaman - totalPokokDibayar;
+            } else if (i < jumlahTambahan) {
+                angsuranPokok = pokokDasar + 50000;
+            } else {
+                angsuranPokok = pokokDasar;
+            }
+
+            totalPokokDibayar += angsuranPokok;
+            totalBunga += bunga;
+            const totalAngsuran = angsuranPokok + bunga;
+            if (i === 0) angsuranPertama = totalAngsuran;
+            sisaPinjaman -= angsuranPokok;
+
+            const periode = currentDate.toLocaleString("id-ID", { month: "long", year: "numeric" });
+            rows += `<tr>
+                <td>${i + 1}</td>
+                <td>${periode}</td>
+                <td>${formatCurrency(angsuranPokok)}</td>
+                <td>${formatCurrency(bunga)}</td>
+                <td class="total">${formatCurrency(totalAngsuran)}</td>
+                <td>${formatCurrency(sisaPinjaman)}</td>
+            </tr>`;
+            currentDate.setMonth(currentDate.getMonth() + 1);
+        }
+
+        const hasil = document.getElementById("hasil");
+        hasil.innerHTML = `
+            <h2>Detail Angsuran Pinjaman</h2>
+            <div class="summary">
+                <div class="stat"><span>Angsuran Pertama</span><strong>${formatCurrency(angsuranPertama)}</strong></div>
+                <div class="stat"><span>Total Bunga</span><strong>${formatCurrency(totalBunga)}</strong></div>
+                <div class="stat"><span>Total Pembayaran</span><strong>${formatCurrency(jumlahPinjaman + totalBunga)}</strong></div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead><tr>
+                        <th>IL</th><th>Periode</th><th>Angsuran Pokok</th>
+                        <th>Bunga</th><th>Total Angsuran</th><th>Sisa Pokok</th>
+                    </tr></thead>
+                    <tbody>${rows}</tbody>
+                </table>
+            </div>`;
+        hasil.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
-    hasilHTML += "</table></div>";
-    document.getElementById("hasil").innerHTML = hasilHTML;
-}
-        
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(amount);
-        }
-
-        // Fungsi untuk menampilkan pop-up
-        function showPopup(message) {
-            document.getElementById('popupMessage').innerText = message;
-            document.getElementById('popup').style.display = 'flex';
-        }
-
-        // Fungsi untuk menutup pop-up
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
-    </script>
+    function showPopup(message) {
+        document.getElementById("popupMessage").innerText = message;
+        document.getElementById("popup").style.display = "flex";
+    }
+    function closePopup() {
+        document.getElementById("popup").style.display = "none";
+    }
+</script>
 </body>
 </html>

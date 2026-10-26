@@ -30,7 +30,7 @@
             </div>
             <input type="range" id="tenor" min="1" max="15" value="12" oninput="updateTenorValue()">
             <div class="range-scale"><span>1</span><span>15 bulan</span></div>
-            <div class="warn" id="tenorWarn">⚠️ Tenor maksimal yang berlaku adalah 12 bulan. Hasil di atas 12 bulan hanya sebagai simulasi.</div>
+            <div class="warn" id="tenorWarn">⚠️ Tenor maksimal yang berlaku adalah 12 bulan.</div>
         </div>
 
         <div class="field">
@@ -152,7 +152,7 @@
         const hasil = document.getElementById("hasil");
         hasil.innerHTML = `
             <h2>Detail Angsuran Pinjaman</h2>
-            ${tenor > 12 ? '<div class="warn show">⚠️ Tenor maksimal yang berlaku adalah 12 bulan. Hasil ini hanya simulasi.</div>' : ''}
+            ${tenor > 12 ? '<div class="warn show">⚠️ Tenor maksimal yang berlaku adalah 12 bulan.</div>' : ''}
             <div class="summary">
                 <div class="stat"><span>Angsuran Pertama</span><strong>${formatCurrency(angsuranPertama)}</strong></div>
                 <div class="stat"><span>Total Bunga</span><strong>${formatCurrency(totalBunga)}</strong></div>

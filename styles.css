@@ -190,3 +190,17 @@ td.total { font-weight: 650; color: var(--accent2); }
 }
 
 .note { color: var(--muted); font-weight: 400; font-size: 12px; }
+
+.warn {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: #fde68a;
+    background: rgba(245, 158, 11, 0.14);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    border-radius: 10px;
+}
+.warn.show { display: block; }
+#hasil .warn { margin: 0 0 14px; text-align: center; }
